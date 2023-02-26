@@ -27,3 +27,9 @@ def time_filter(data):
     data = sorted(data, key=lambda k: k["date"], reverse=True)
     return data[:5]
 
+
+def format_date(data):
+    for i in data:
+        i["date"] = dt.datetime.strptime(i["date"], '%Y-%m-%dT%H:%M:%S.%f')
+        i["date"] = dt.date.strftime(i["date"], '%d.%m.%Y')
+    return data
