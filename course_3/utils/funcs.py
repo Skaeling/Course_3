@@ -4,8 +4,14 @@ import datetime as dt
 
 def load_data(data_path):
     """Получает json файл операций по ссылке возвращает список"""
-    data = requests.get(data_path)
-    return data.json()
+    try:
+        response = requests.get(data_path)
+        if response.status_code == 200:
+            return response.json()
+        else:
+            return None, f"Код ошибки: {response.status_code}"
+    except requests.exceptions.ConnectionError:
+        return None, f"Ошибка: ConnectionError"
 
 
 def data_filter(data):
