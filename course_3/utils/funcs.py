@@ -12,7 +12,6 @@ def data_filter(data):
     """Получает список всех операций, возвращает список операций со статусом EXECUTED"""
     filter_data = []
     for i in data:
-        # сейчас попадают операции без ключа from
         if "state" in i:
             if i["state"] == "EXECUTED":
                 filter_data.append(i)
@@ -29,6 +28,8 @@ def time_filter(data):
 
 
 def format_date(data):
+    """Получает дату в формате год-месяц-день-час-минуты-секунды,
+    возвращает дату в формате: день.месяц.год"""
     for i in data:
         i["date"] = dt.datetime.strptime(i["date"], '%Y-%m-%dT%H:%M:%S.%f')
         i["date"] = dt.date.strftime(i["date"], '%d.%m.%Y')
